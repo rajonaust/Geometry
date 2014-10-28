@@ -1,0 +1,32 @@
+// Find the area of a polygon
+// Gives n number of points . 1st point connect to 2nd point , 2nd point connect to 3rd point and so on .
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <cstdio>
+using namespace std;
+struct Point
+{
+    int x , y ;
+};
+double polygonArea(vector<Point>list)
+{
+    double area = 0 ;
+    for(int i=1;i+1<list.size();i++)
+        area+=(list[i].y-list[0].y)*(list[i+1].x-list[i].x)-(list[i].x-list[0].x)*(list[i+1].y-list[i].y);
+    return fabs(area/2.0);
+}
+int main()
+{
+    vector <Point> list ;
+    int n ; // Number of points .
+    cin >> n ;
+    while(n--)
+    {
+        Point obj ;
+        cin >> obj.x >> obj.y ;
+        list.push_back(obj);
+    }
+    printf("%.10lf\n",polygonArea(list));
+    return 0;
+}
