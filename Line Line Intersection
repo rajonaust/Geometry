@@ -1,0 +1,44 @@
+// Line Line Intersection .
+// Give two lines . Find their intersect point .
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <vector>
+using namespace std;
+struct Point
+{
+    int x , y ;
+};
+double polygonArea(vector<Point>list)
+{
+    double area = 0 ;
+    for(int i=1;i+1<list.size();i++)
+        area+=(list[i].y-list[0].y)*(list[i+1].x-list[i].x)-(list[i].x-list[0].x)*(list[i+1].y-list[i].y);
+    return fabs(area/2.0);
+}
+int main()
+{
+    Point x1,y1,x2,y2;//x1 and y1 are intersect points of one line and x2 and y2 are intersect point of another line .
+
+    cin >> x1.x >> x1.y >> y1.x >> y1.y >> x2.x >> x2.y >> y2.x >> y2.y ;
+
+    double A1 = y1.y-x1.y , B1 = x1.x-y1.x , C1 = A1*x1.x+B1*x1.y ; // A1*x + B1*y = C1 ;
+    double A2 = y2.y-x2.y , B2 = x2.x-y2.x , C2 = A2*x2.x+B2*x2.y ; // A2*x + B2*y = C2 ;
+
+    double det = A1*B2 - A2*B1 ;
+
+    if(det==0)
+    {
+        vector <Point> list ;
+        list.push_back(x1);list.push_back(x2);
+        list.push_back(y2);list.push_back(y1);
+        if(polygonArea(list)==0) puts("Collinear"); else puts("Parallel") ;
+    }
+    else
+    {
+        double x = (B2*C1-B1*C2)/det ;
+        double y = (A1*C2-A2*C1)/det ;
+        printf("%.2lf %.2lf\n",x,y);
+    }
+    return 0;
+}
