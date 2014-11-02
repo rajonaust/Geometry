@@ -43,7 +43,7 @@ bool isInside(Point P)
     Q.y=P.y+inf;Q.x=P.x+inf+1;
     bool onLine = false ;
     int cnt = 0 ;
-    for(int i=0;i<list.size();i++) if(doIntersect(list[i],list[i+1],P,Q,onLine)) cnt ++;
+    for(int i=0;i+1<list.size();i++) if(doIntersect(list[i],list[i+1],P,Q,onLine)) cnt ++;
     if(onLine) return true ;
     if(cnt%2==1) return true;
     return false ;
