@@ -1,4 +1,4 @@
-// Check whether a point inside or outside on a polygon . 
+// Check whether a point inside or outside on a polygon .
 #include <iostream>
 #include <cstdio>
 #include <vector>
@@ -58,7 +58,7 @@ int main()
         scanf("%d%d",&obj.x,&obj.y);
         list.push_back(obj);
     }
-    list.push_back(0);
+    list.push_back(list[0]);
     Point obj ; // Check the point whether it is inside or outside on the polygon .
     scanf("%d%d",&obj.x,&obj.y);
     if(isInside(obj)) puts("Yes");else puts("No");
