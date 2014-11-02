@@ -1,0 +1,15 @@
+// Give a circle radius co-ordinates (x,y) and the length of radius .
+// Give a Point (Px,Py) and find out whether the point inside or outside on the circle .
+#include <iostream>
+using namespace std;
+double dist (double x , double y , double Px , double Py)
+{
+    return (x-Px)*(x-Px)+(y-Py)*(y-Py) ;
+}
+int main()
+{
+    double x , y , c , Px , Py ;
+    cin >> x >> y >> c >> Px >> Py ;
+    if(c*c>=dist(x,y,Px,Py)) cout << "YES" << endl ; else cout << "NO" << endl ;
+    return 0;
+}
