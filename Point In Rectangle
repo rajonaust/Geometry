@@ -1,0 +1,23 @@
+// Point In Rectangle .
+// Give two points of rectangle . One is lower left and another is upper right .
+#include <iostream>
+#include <cmath>
+using namespace std;
+struct Point
+{
+    int x , y ;
+};
+bool check (Point A , Point B , Point P)
+{
+    if(P.x>=min(A.x,B.x)&&P.x<=max(A.x,B.x)&&P.y>=min(A.y,B.y)&&P.y<=max(A.y,B.y)) return true ;
+    // ' = ' checks whether the point lies in any line of the rectangle or not .
+    else return false ;
+}
+int main()
+{
+    Point A = {0,0} , B = {20,20} ;
+    Point P = {10,15} ;
+    if(check(A,B,P)) cout << "Inside" << endl ;
+    else cout << "Outside" << endl ;
+    return 0;
+}
