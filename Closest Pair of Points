@@ -1,0 +1,51 @@
+// Closest Pair of Points .
+// Divide and Conquer Method .
+// Given N numbers of 2-D points . Find out 2 points that there distance is minimum from all pairs .
+// Time Complexity O(N*log(N))
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+#define mx 10000
+struct Point
+{
+    double x , y ;
+};
+Point P[mx+10] , temp[mx+10] ;
+bool cmp(Point a , Point b)
+{
+    return a.x < b.x ;
+}
+double dist (Point a, Point b)
+{
+    return sqrt ( (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y) ) ;
+}
+double closestUtil(int lo , int hi)
+{
+    if(hi-lo==0) return 100000.0 ;
+    if(hi-lo==1) return dist(P[lo],P[hi]) ;
+    int mid = (lo+hi) / 2 ;
+    double d = min(closestUtil(lo,mid),closestUtil(mid+1,hi));
+    int t = 0 ;
+    for(int i=lo;i<=hi;i++)
+    {
+        if(fabs(P[i].x-P[mid].x)<d) temp[t++] = P[i] ;
+    }
+    for(int i=0;i<t;i++)
+    {
+        for(int j=i+1;j<t;j++)
+        {
+            d=min(d,dist(temp[i],temp[j]));
+        }
+    }
+    return d ;
+}
+int main()
+{
+    int N ; // N is the number of points .
+    scanf("%d",&N);
+    for(int i=0;i<N;i++) scanf("%lf%lf",&P[i].x,&P[i].y);
+    sort(P,P+N,cmp);
+    printf("%.6lf\n",closestUtil(0,N-1));
+    return 0;
+}
