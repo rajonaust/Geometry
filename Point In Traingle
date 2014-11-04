@@ -1,0 +1,27 @@
+// Point In Triangle .
+#include <iostream>
+#include <cmath>
+using namespace std;
+struct Point
+{
+    int x , y ;
+};
+double area (Point A , Point B , Point C)
+{
+    return fabs(A.x*(B.y-C.y) + B.x*(C.y-A.y) + C.x*(A.y-B.y))/2.0 ;
+}
+int main()
+{
+    Point A = {0,0} , B = {20,0} , C = {10,30} ;
+    Point P = {10,15} ;
+
+    double area1 = area(A,B,P);
+    double area2 = area(B,C,P);
+    double area3 = area(A,C,P);
+
+    double areaT = area(A,B,C);
+
+    if(area1+area2+area3==areaT) cout << "Inside" << endl ;
+    else cout << "Outside" << endl ;
+    return 0;
+}
