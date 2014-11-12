@@ -1,0 +1,118 @@
+// Convex Hull .
+// Graham Scan algorithm .
+// Given a set of N number points . Find the smallest convex polygon that contains all the points .
+// Time Complexity O(NlogN) .
+// N -> N is the number of points .
+#include <cstdio>
+#include <stack>
+#include <algorithm>
+using namespace std ;
+struct Point
+{
+    long long x , y ;
+};
+Point arr[100+10] ;
+long long dist(Point P,Point Q)
+{
+    return (P.x-Q.x)*(P.x-Q.x)+(P.y-Q.y)*(P.y-Q.y) ;
+}
+int orientation(Point P,Point Q,Point R)
+{
+    long long ret = (Q.y-P.y)*(R.x-Q.x) - (Q.x-P.x)*(R.y-Q.y) ;
+    if(ret<0) return 2;
+    if(ret>0) return 1;
+    return ret ;
+}
+bool cmp(Point X , Point Y)
+{
+    int ret = orientation(arr[0],X,Y);
+    if(ret==0)
+    {
+        long long dist1 = dist(arr[0],X);
+        long long dist2 = dist(arr[0],Y);
+        return dist1 < dist2 ;
+    }
+    else if(ret==2) return true ;
+    else return false ;
+}
+Point nextToTop(stack<Point>S)
+{
+    S.pop();
+    return S.top();
+}
+void convexHull(int N)
+{
+    int ymin = arr[0].y , index = 0 ;
+    for(int i=1;i<N;i++)
+    {
+        if(arr[i].y<ymin||(arr[i].y==ymin&&arr[i].x<arr[index].x))
+        {
+            ymin = arr[i].y ;
+            index = i ;
+        }
+    }
+
+    swap(arr[0],arr[index]);
+    sort(&arr[1],&arr[N],cmp);
+    stack <Point> S ;
+
+    S.push(arr[0]);
+    for(int i=1;i<N;i++)
+    {
+        while(S.size()>1&&orientation(nextToTop(S),S.top(),arr[i])!=2) S.pop();
+        S.push(arr[i]);
+    }
+
+    Point ans[100+10] ;
+    int cnt = 0 ;
+    while(!S.empty())
+    {
+        ans[cnt++]=S.top() ;
+        S.pop();
+    }
+
+    printf("%d\n",cnt);
+    for(int i=cnt-1;i>=0;i--) printf("%lld %lld\n",ans[i].x,ans[i].y);
+}
+int main()
+{
+    int N ; // N is the number of points .
+    scanf("%d",&N);
+    for(int i=0;i<N;i++)
+    {
+        Point obj ;
+        scanf("%lld%lld",&obj.x,&obj.y);
+        arr[i]=obj;
+    }
+    convexHull(N);
+    return 0;
+}
+/*
+15
+30 30
+50 60
+60 20
+70 45
+86 39
+112 60
+200 113
+250 50
+300 200
+130 240
+76 150
+47 76
+36 40
+33 35
+30 30
+*/
+/*
+7
+60 20
+250 50
+300 200
+130 240
+76 150
+47 76
+30 30
+60 20
+*/
