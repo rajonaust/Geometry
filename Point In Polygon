@@ -1,5 +1,5 @@
 // Check whether a point inside or outside on a polygon .
-// A polygon is not a convex hull .
+// A polygon is not a convex hull always .
 #include <iostream>
 #include <cstdio>
 #include <vector>
