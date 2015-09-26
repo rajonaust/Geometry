@@ -11,7 +11,8 @@ struct Point
 {
     long long x , y ;
 };
-Point arr[100+10] ;
+Point arr[100+10] , ans[100+10] ;
+stack <Point> S ;
 long long dist(Point P,Point Q)
 {
     return (P.x-Q.x)*(P.x-Q.x)+(P.y-Q.y)*(P.y-Q.y) ;
@@ -35,10 +36,13 @@ bool cmp(Point X , Point Y)
     else if(ret==2) return true ;
     else return false ;
 }
-Point nextToTop(stack<Point>S)
+Point nextToTop()
 {
+    Point P = S.top();
     S.pop();
-    return S.top();
+    Point res = S.top();
+    S.push(P);
+    return res ;
 }
 void convexHull(int N)
 {
@@ -54,16 +58,14 @@ void convexHull(int N)
 
     swap(arr[0],arr[index]);
     sort(&arr[1],&arr[N],cmp);
-    stack <Point> S ;
 
     S.push(arr[0]);
     for(int i=1;i<N;i++)
     {
-        while(S.size()>1&&orientation(nextToTop(S),S.top(),arr[i])!=2) S.pop();
+        while(S.size()>1&&orientation(nextToTop(),S.top(),arr[i])!=2) S.pop();
         S.push(arr[i]);
     }
 
-    Point ans[100+10] ;
     int cnt = 0 ;
     while(!S.empty())
     {
